@@ -19,7 +19,7 @@ public class MybatisUtil {
 			SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
 			return sqlSessionFactoryBuilder.build(reader);
 		} catch (IOException e) {
-			throw new RuntimeException("Ã»ÓĞÕÒµ½Õâ¸öÅäÖÃÎÄ¼ş",e);
+			throw new RuntimeException("é…ç½®æ–‡ä»¶æœ‰é—®é¢˜",e);
 		}
 	}
 	
