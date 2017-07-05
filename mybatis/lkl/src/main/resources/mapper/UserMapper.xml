@@ -43,7 +43,14 @@
  	<insert  id="save" parameterType="User">
  		insert into t_user (name,password,comid) values (#{name},#{password},#{comId})
  	</insert>
- 	
+ 	<update id="update" parameterType="User">
+ 		update t_user set name=#{name},password=#{password} where id=#{id}
+ 	</update>
+ 	<delete id="delById" parameterType="int">
+		delete from t_user where id = #{id}
+	</delete>
+
+
  </mapper>
  
  

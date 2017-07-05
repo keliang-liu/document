@@ -3,6 +3,8 @@ package com.keliangliu.test;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.keliangliu.entity.User;
@@ -10,7 +12,22 @@ import com.keliangliu.mapper.UserMapper;
 import com.keliangliu.util.MybatisUtil;
 
 public class MybatisTest {
-
+	
+	private SqlSession sqlSession;
+	private UserMapper userMapper;
+	
+	
+	@Before
+	public void before(){
+		 sqlSession = MybatisUtil.getSqlSession();
+	     userMapper = sqlSession.getMapper(UserMapper.class);
+	}
+	
+	@After
+	public void After(){
+		sqlSession.close();
+	}
+	
 	@Test
 	public void findLoadCompany(){
 		
@@ -42,6 +59,22 @@ public class MybatisTest {
 		sqlSession.close();
 	}
 	
-	
- 
+	@Test
+	public void update(){
+	   User user = new User();
+	   user.setName("小红");
+	   user.setPassword("987");
+	   user.setId(5);
+	   userMapper.update(user);
+	   sqlSession.commit();
+	}
+
+	@Test
+	public void delById(){
+		userMapper.delById(5);
+		sqlSession.commit();
+	}
+
+
+
 }

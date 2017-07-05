@@ -8,4 +8,6 @@ public interface UserMapper {
 
 	List<User> findLoadCompany();
 	void save(User user);
+	void update(User user);
+	void delById(int id);
 }
