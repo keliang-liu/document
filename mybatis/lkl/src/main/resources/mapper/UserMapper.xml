@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.keliangliu.mapper.UserMapper">
+ 	
+ 	<!-- <select id="findLoadCompany" resultType="User">
+		 	SELECT
+				t_user.id,
+				t_user.`name`,
+				`password`,
+				t_com.id AS `com.id`,
+				t_com.name AS `com.name`
+			FROM
+				t_user,
+				t_com
+			WHERE
+				t_user.comid = t_com.id
+ 	</select> -->
+ 	
+ 	
+ 	<select id="findLoadCompany" resultMap="userMap">
+ 		select 
+ 			t_user.id as userId,
+ 			t_user.name as userName,
+ 			t_com.id as comId,
+ 			t_com.name as comName
+ 		from
+ 			t_user,
+ 			t_com
+ 		where 
+ 			t_user.comid = t_com.id
+ 	</select>
+ 	
+ 	<resultMap type="User" id="userMap">
+ 		<id column="userId" property="id"/>
+ 		<result column="userName" property="name"/>
+ 		<association property="com" javaType="Company">
+			<id column="comId" property="id"/> 		
+ 			<result column="comName" property="name"/>
+ 		</association>
+ 	</resultMap>
+ 	<insert  id="save" parameterType="User">
+ 		insert into t_user (name,password,comid) values (#{name},#{password},#{comId})
+ 	</insert>
+ 	
+ </mapper>
+ 
+ 
