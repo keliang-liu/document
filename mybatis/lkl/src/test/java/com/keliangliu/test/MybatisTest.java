@@ -1,5 +1,6 @@
 package com.keliangliu.test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,7 +41,6 @@ public class MybatisTest {
 		}
 	
 		sqlSession.close();
-		
 	}
 	
 	@Test
@@ -64,16 +64,33 @@ public class MybatisTest {
 	   User user = new User();
 	   user.setName("小红");
 	   user.setPassword("987");
-	   user.setId(5);
+	   user.setId(7);
 	   userMapper.update(user);
 	   sqlSession.commit();
 	}
 
 	@Test
 	public void delById(){
-		userMapper.delById(5);
+		userMapper.delById(7);
 		sqlSession.commit();
 	}
+
+	@Test
+	public void findByUserNameAndPassword(){
+
+		List<User> userList = userMapper.findByUserNameAndPassword("","5554");
+        for (User user:userList) {
+            System.out.println(user.getId());
+        }
+
+	}
+
+	@Test
+	public void deleteByIds(){
+	    List<Integer> idList = Arrays.asList(6,8);
+	    userMapper.deleteByIds(idList);
+        sqlSession.commit();
+    }
 
 
 
