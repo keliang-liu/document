@@ -1,0 +1,96 @@
+html,body {
+    padding:0px;
+    margin:0px;
+}
+
+body {
+    background:url("../imag/todo.jpg") no-repeat fixed;
+}
+.top {
+    height:60px;
+    font-size:24px;
+    line-height:60px;
+    background-color:white;
+    text-align: center;
+    font-weight: bolder;
+    margin-bottom : 20px;
+}
+.container {
+    width:600px;
+    margin:0px auto;
+
+}
+.anv {
+    height:50px;
+    background-color:rgba(0,0,0,0.3);
+    line-height:50px;
+    border-radius:3px;
+    margin-bottom:20px;
+}
+.anv input {
+    width:584px;
+    padding:8px;
+    background-color:transparent;
+    border:0px;
+    outline:none;
+    color:white;
+}
+::-webkit-input-placeholder {
+    color:white;
+    font-size:14px;
+    text-shadow:rgba(0,0,0,0.8);
+
+}
+.ul {
+
+    margin-bottom:40px;
+   
+}
+
+.ul .li {
+    height:50px;
+    line-height:50px;
+    border-radius:3px;
+    background-color:rgba(255,255,255,0.8);
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+    margin-bottom:10px;
+}
+.ul a {
+    padding : 0px;
+    display : inline-block;
+    height:12px;
+    width : 12px;
+    margin : 0px 8px;
+    border: 1px solid #888;
+    border-radius : 3px;
+    text-decoration: none;
+
+}
+
+.done .li {
+    background-color: rgba(255,255,255,0.3);
+    color:#2c3e50;
+    text-decoration :line-through;
+    
+}
+.checkbox a {
+    position:relative;
+}
+
+.done .li .checkbox a:after {
+    font-family: "FontAwesome";
+    content:"\f00c" ;
+    position : absolute;
+    top : -21px;
+    left: 1px;
+    color:#7f8c8d;
+}
+.fa-times {
+    float:right;
+    color:transparent;
+    margin-top:15px;
+    margin-right:5px;
+}
+.fa-times:hover {
+    color:red;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keliangliu.crm.mapper.SalesRecordMapper">
+    <insert id="saveSalesRecord">
+        insert into sales_record (content, sales_id, update_time)
+        VALUES
+          (#{content},#{salesId},#{updateTime})
+    </insert>
+    <select id="findBySalesId" resultType="com.keliangliu.crm.entity.SalesRecord">
+        select * from sales_record where sales_id = #{id}
+    </select>
+</mapper>

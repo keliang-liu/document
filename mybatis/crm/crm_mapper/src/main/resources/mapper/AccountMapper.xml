@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keliangliu.crm.mapper.AccountMapper">
+    <update id="update">
+
+        UPDATE account set
+        <if test="userName != null and userName != ''">
+            user_name = #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="createTime != null and createTime != ''">
+            create_time = #{createTime}
+        </if>
+        <if test="updateTime != null and updateTime != ''">
+              update_time = #{updateTime}
+        </if>
+        <if test="mobile != null and mobile != ''">
+              mobile = #{mobile}
+        </if>
+        where
+            id = #{id}
+    </update>
+    <delete id="delById" parameterType="int">
+        DELETE from account where id = #{id}
+    </delete>
+
+    <select id="findAll" resultType="Account">
+       select * from account
+    </select>
+    <select id="countByDeptId" parameterType="int" resultType="java.lang.Integer">
+        SELECT
+            count(*)
+        FROM
+            account
+        <if test="id != null and id != ''">
+            LEFT JOIN account_dept ON account.id = account_dept.account_id
+            WHERE
+            account_dept.dept_id = #{id}
+        </if>
+    </select>
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(*) from account
+    </select>
+    <select id="findByDeptId" parameterType="int" resultMap="accountLoadMap">
+        SELECT
+            account.*,
+            dept.id as deptId,
+            dept_name,
+            p_id
+        FROM
+            account
+        LEFT JOIN account_dept ON account.id = account_dept.account_id
+        LEFT JOIN dept on dept.id = account_dept.dept_id
+        <where>
+           <if test="id != null and id != ''">
+               account.id IN (
+               SELECT
+               account_id
+               FROM
+               account_dept
+               WHERE
+               dept_Id = #{id}
+               )
+           </if>
+        </where>
+    </select>
+    <select id="findByMobile" resultMap="accountLoadMap">
+         SELECT
+            account.*,
+            dept.id as deptId,
+            dept.dept_name,
+            dept.p_id
+        FROM
+            account
+        LEFT JOIN account_dept ON account_dept.account_id = account.id
+        LEFT JOIN dept ON account_dept.dept_id = dept.id
+        WHERE
+            account.mobile = #{mobile}
+
+    </select>
+    <select id="findById" resultType="com.keliangliu.crm.entity.Account">
+        SELECT * from account where id = #{accountId};
+    </select>
+
+    <!--<resultMap id="accountLoadDept" type="com.keliangliu.crm.entity.Account">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="mobile" property="mobile"/>
+        <collection property="deptList" ofType="com.keliangliu.crm.entity.Dept">
+            <id column="deptId" property="id"/>
+            <result column="dept_name" property="deptName"/>
+            <result column="p_id" property="pId"/>
+        </collection>
+    </resultMap>-->
+
+
+
+    <resultMap id="accountLoadMap" type="com.keliangliu.crm.entity.Account">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="mobile" property="mobile"/>
+        <collection property="deptList" ofType="com.keliangliu.crm.entity.Dept">
+            <id column="deptId" property="id"/>
+            <result column="dept_name" property="deptName"/>
+            <result column="p_id" property="pId"/>
+        </collection>
+    </resultMap>
+    <insert id="saveAccount" useGeneratedKeys="true" keyProperty="id">
+        insert into account (user_name, password, create_ime, update_time, mobile) VALUES (#{userName},#{password},#{createTime},#{updateTime},#{mobile})
+    </insert>
+
+</mapper>

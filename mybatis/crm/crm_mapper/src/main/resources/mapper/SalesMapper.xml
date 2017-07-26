@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keliangliu.crm.mapper.SalesMapper">
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into sales (chance_name, customerId, worth, current_progress, last_contact_time, remark, accountId,create_time)
+        VALUES
+        (#{chanceName},#{customerId},#{worth},#{currentProgress},#{lastContactTime},#{remark},#{accountId},#{createTime})
+
+    </insert>
+    <update id="editSales">
+
+        UPDATE sales
+        <set>
+            <if test="chanceName != null and chanceName != ''">
+                chance_name = #{chanceName},
+            </if>
+            <if test="currentProgress != null and currentProgress != ''">
+                current_progress = #{currentProgress},
+            </if>
+                last_contact_time = #{lastContactTime},
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createTime != null ">
+                create_time = #{createTime},
+            </if>
+            customerId = #{customerId},
+            accountId = #{accountId}
+            where
+             id = #{id}
+        </set>
+
+    </update>
+    <delete id="delById">
+
+        DELETE from sales where id = #{id}
+
+    </delete>
+    <select id="findAllByParams" resultMap="salesMap">
+
+        SELECT s.*,c.name as custName from sales s,customer c
+        WHERE
+            s.customerId = c.id
+            and accountId = #{accountId}
+            <if test="keyword != null and keyword !=''">
+                and customerId in (select id from customer where name like concat('%',#{keyword},'%') )
+            </if>
+        order by id desc
+    </select>
+    <select id="findById" resultType="com.keliangliu.crm.entity.Sales">
+        SELECT * from sales where id = #{id}
+    </select>
+    <select id="findByCustomerId" resultType="com.keliangliu.crm.entity.Sales">
+        SELECT * from sales where customerId = #{customerId}
+
+    </select>
+    <resultMap id="salesMap" type="Sales">
+        <id column="id" property="id"/>
+        <result column="chance_name" property="chanceName"/>
+        <result column="customerId" property="customerId"/>
+        <result column="worth" property="worth"/>
+        <result column="current_progress" property="currentProgress"/>
+        <result column="last_contact_time" property="lastContactTime"/>
+        <result column="remark" property="remark"/>
+        <result column="accountId" property="accountId"/>
+       <association property="customer" javaType="Customer">
+           <result column="custName" property="name"/>
+       </association>
+    </resultMap>
+
+</mapper>

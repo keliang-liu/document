@@ -1,0 +1,79 @@
+html,body,h1 {
+    margin:0px;
+    padding:0px;
+}
+body {
+     background:url("../imag/todo.jpg") no-repeat fixed;
+}
+.top {
+    height:60px;
+    background-color:skyblue;
+    text-align: center;
+    line-height: 60px;
+}
+.content {
+    width:600px;
+    margin:0px auto;
+}
+.text {
+    height:40px;
+    line-height:40px;
+    background-color:rgba(0,0,0,0.3);
+    margin:20px 0px;
+    border-radius:3px;
+
+}
+.text .tx {
+    margin:0px;
+    padding:0px 8px;
+    width:584px;
+    background-color:transparent;
+    border:0px;
+    outline:none;
+    color:white;
+    
+}
+::-webkit-input-placeholder {
+    color:white;
+    text-shadow:0px 1px 2px rgba(0,0,0,0.8);
+    font-size:14px;
+}
+.checkboxlist {
+    margin-bottom:40px;
+}
+.checkbox {
+    height:40px;
+    background-color:rgba(255,255,255,0.8);
+    line-height: 40px;
+    border-radius: 3px;
+    box-shadow:0px 1px 2px rgba(0,0,0,0.3);
+    font-size:14px;
+    margin-bottom:10px;
+}
+.checkbox a {
+    height:12px;
+    width:12px;
+    display: inline-block;
+    margin:0px 10px;
+    border:1px solid #888;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+.done .checkbox {
+    background-color:rgba(255,255,255,0.3);
+    text-decoration-line: line-through;
+    color:#2c3e50;
+    position: relative;
+
+}
+
+.done .checkbox a:after {
+    font-family:"FontAwesome";
+    content:"\f00c";
+    position: absolute;
+    top:-3px;
+    left:12px;
+    color: #7f8c8d;
+    font-size:16px;
+}

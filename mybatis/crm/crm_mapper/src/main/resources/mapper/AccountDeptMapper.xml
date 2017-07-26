@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keliangliu.crm.mapper.AccountDeptMapper">
+    <insert id="saveAccountDept">
+        INSERT into account_dept (dept_id,account_id) values (#{deptId},#{accountId})
+    </insert>
+    <delete id="delByAccountId">
+        delete from account_dept where account_id = #{id}
+    </delete>
+    <select id="findByDeptId" resultType="java.lang.Integer">
+        SELECT account_id from account_dept where dept_id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keliangliu.crm.mapper.TaskMapper">
+
+
+    <insert id="saveTask">
+        insert into task (task_name,account_id,customer_id,complete_time,reminder_time,state,sales_id)
+        VALUES
+        (#{taskName},#{accountId},#{customerId},#{completeTime},#{reminderTime},#{state},#{salesId})
+    </insert>
+    <update id="editTask">
+
+        update task set task_name = #{taskName},
+        account_id = #{accountId},
+        customer_id = #{customerId},
+        sales_id = #{salesId},
+        state = #{state},
+        reminder_time = #{reminderTime},
+        complete_time = #{completeTime}
+        where
+          id = #{id}
+
+    </update>
+    <delete id="delById">
+        DELETE from task where id = #{id}
+
+    </delete>
+    <select id="findByParams" resultMap="findTaskLoadSalesAndCustomerMap">
+
+        select task.*,
+        customer.id as custId,
+        customer.name as custName,
+        sales.id as saleId,
+        sales.chance_name as chanceName
+        from
+          task
+        LEFT JOIN
+          customer
+        ON
+          task.customer_id = customer.id
+        left JOIN
+          sales
+        ON
+          task.sales_id = sales.id
+        where
+          task.account_id = #{accountId}
+          <if test="showAll != 'all'">
+              and task.state = 1
+          </if>
+        order by
+          task.complete_time asc
+    </select>
+    <select id="findById" resultType="com.keliangliu.crm.entity.Task">
+        SELECT * FROM  task where id = #{id}
+
+    </select>
+    <resultMap id="findTaskLoadSalesAndCustomerMap" type="Task">
+        <id column="id" property="id"/>
+        <result column="task_name" property="taskName"/>
+        <result column="account_id" property="accountId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="sales_id" property="salesId"/>
+        <result column="state" property="state"/>
+        <result column="reminder_time" property="reminderTime"/>
+        <result column="complete_time" property="completeTime"/>
+        <result column="create_time" property="createTime"/>
+        <association property="sales" javaType="Sales">
+            <id column="salesId" property="id"/>
+            <result column="chanceName" property="chanceName"/>
+        </association>
+        <association property="customer" javaType="Customer">
+            <id column="custId" property="id"/>
+            <result column="custName" property="name"/>
+        </association>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,86 @@
+
+html,body {
+    margin:0px;
+    padding:0px;
+    background:url("../imag/todo.jpg") no-repeat fixed;
+}
+
+/*开头*/
+.top {
+    height:50px;
+    font-size:20px;
+    line-height:50px;
+    text-align:center;
+    margin-bottom:20px;
+    background-color:skyblue;
+}
+/*正文*/
+.content {
+    width:600px;
+    margin:0px auto;
+}
+/*文本框*/
+.text {
+    height:40px;
+    background-color:rgba(0,0,0,0.3);
+    border-radius:3px;
+    line-height:40px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+.text input {
+    width:584px; 
+    border:0px;
+    outline:none;
+    background-color:transparent;
+    color:#fff;
+    padding:0px 8px;
+}
+.text input::-webkit-input-placeholder {
+    color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,0.8); 
+}
+/*类似复选框的*/
+.checkboxlist {
+   margin-bottom:20px;
+}
+.checkbox:hover {
+    transition:1s;
+    background-color:rgba(0,0,0,0.1);
+}
+.checkbox {
+    height:40px;
+    background-color:rgba(255,255,255,0.8);
+    line-height:40px;
+    border-radius:3px;
+    padding:0px 10px;
+    margin-bottom:8px;
+    box-shadow:0px 1px 2px rgba(0,0,0,0.3);
+    font-size:14px;
+}
+.checkbox a{
+    display:inline-block;
+    height:12px;
+    width:12px;
+    border:1px solid #888;
+    text-decoration: none;
+    border-radius:3px;
+    margin-right:10px;
+}
+/*被选中的时候*/
+.done .checkbox {
+    text-decoration: line-through;
+    background-color:rgba(255,255,255,0.3);
+    color:#2c3e50;
+    font-size:14px;
+    position:relative;
+}
+.done .checkbox a:after{
+    font-family:"FontAwesome";
+    content:"\f00c";
+    position:absolute;
+    top:-3px;
+    left: 12px;
+    font-size:16px;
+    color: #7f8c8d;;
+}

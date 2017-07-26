@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keliangliu.crm.mapper.CustomerMapper">
+
+
+    <insert id="save">
+        insert
+        into
+          customer
+          (name,position,tel,address,trade,source,level,remark,create_time,account_id,last_contact_time,update_time,sex,reminder)
+        VALUES
+          (#{name},#{position},#{tel},#{address},#{trade},#{source},#{level},#{remark},#{createTime},#{accountId},#{lastContactTime},#{updateTime},#{sex},#{reminder})
+    </insert>
+    <insert id="saveList">
+        insert
+          into
+          customer
+          (name,position,level,tel,address,account_id,reminder)
+          values
+          <foreach collection="customerList" item="cust" separator=",">
+              (#{cust.name},#{cust.position},#{cust.level},#{cust.tel},#{cust.address},#{cust.accountId},#{cust.reminder})
+          </foreach>
+
+    </insert>
+
+    <update id="editCustomer" >
+        UPDATE
+          customer
+        <set>
+          <if test="name != null and name != ''">
+              name = #{name},
+          </if>
+        <if test="position != null and position != ''">
+            position = #{position},
+        </if>
+        <if test="tel != null and tel != ''">
+            tel = #{tel},
+        </if>
+        <if test="address != null and address != ''">
+            address = #{address},
+        </if>
+        <if test="trade != null and trade != ''">
+            trade = #{trade},
+        </if>
+        <if test="source != null and source != ''">
+            source = #{source},
+        </if>
+        <if test="level != null and level != ''">
+            level = #{level},
+        </if>
+        <if test="remark != null and remark != ''">
+            remark = #{remark},
+        </if>
+        <if test="remark != null and remark != ''">
+            remark = #{remark},
+        </if>
+            last_contact_time = #{lastContactTime},
+        <if test="sex != null and sex != ''">
+            sex = #{sex},
+        </if>
+        <if test="reminder != null and reminder != ''">
+            reminder = #{reminder},
+        </if>
+            update_time = #{updateTime},
+            account_id = #{accountId},
+        </set>
+        where
+          id = #{id}
+
+    </update>
+
+
+    <select id="findByTel" resultType="com.keliangliu.crm.entity.Customer">
+        SELECT * from customer where tel = #{tel}
+    </select>
+
+    <select id="findByParams" resultType="com.keliangliu.crm.entity.Customer">
+
+        SELECT
+            *
+           FROM
+           customer
+        WHERE
+            account_id = #{accountId}
+
+           <if test="keyword != null and keyword != ''">
+               and
+               (name like concat('%',#{keyword},'%')) or tel like concat('%',#{keyword},'%')
+           </if>
+
+    </select>
+    <select id="findById" resultType="com.keliangliu.crm.entity.Customer">
+
+        select * from customer where id = #{id}
+
+    </select>
+    <select id="findByAccountId" resultType="com.keliangliu.crm.entity.Customer">
+        select * from customer where account_id = #{id}
+
+    </select>
+    <select id="findPublicByParams" resultType="com.keliangliu.crm.entity.Customer">
+
+        select
+              *
+          from
+            customer
+            where account_id = 1
+            <if test="keyword != null and keyword != ''">
+                and (name like concat('%',#{keyword},'%')) or tel like concat('%',#{keyword},'%')
+            </if>
+
+    </select>
+</mapper>
